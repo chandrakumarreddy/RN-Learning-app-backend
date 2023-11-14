@@ -45,7 +45,8 @@ app.post("/sets", async ({ body }) => {
   const set = await client.db.sets.create({
     title,
     description,
-    private: isPrivate,
+    private: isPrivate || false,
+    cards: 0,
     creator,
   });
 
@@ -101,7 +102,6 @@ app.post("/cards", async ({ body }) => {
     question,
     answer,
   });
-
   if (card) {
     await client.db.sets.update(set!, {
       cards: {
